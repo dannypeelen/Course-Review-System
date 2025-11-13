@@ -1,0 +1,12 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/coursereview
+        username: dev
+        password: devpass
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
+
+server:
+    port: 8080
