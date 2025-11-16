@@ -2,6 +2,7 @@ package com.cs1530.coursereview.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "courses")
@@ -22,34 +23,83 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    private Teacher teacher; //we must implement Teacher object
+    private Teacher teacher;
 
     @OneToMany(mappedBy = "course")
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
+
+    private int rating;
 
     private String schedule;
 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId(){ return id; }
-    public void setId(Long id){ this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getCourseNumber() { return courseNumber; }
-    public void setCourseNumber(String courseNumber) { this.courseNumber = courseNumber; }
+    public String getCourseNumber() {
+        return courseNumber;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getTitle() {
+        return title;
+    }
 
-    public Teacher getTeacher() { return teacher; }
-    public void setTeacher(Teacher teacher) { this.teacher = teacher; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public List<Review> getReviews() { return reviews; }
-    public void setReviews(List<Review> reviews) { this.reviews = reviews; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public String getSchedule() { return schedule; }
-    public void setSchedule(String schedule) { this.schedule = schedule; }
+    public String getDescription() {
+        return description;
+    }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void addReview(Review review) {
+        if (this.reviews != null) {
+            this.reviews.add(review);
+        }
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
 
 }
