@@ -1,6 +1,6 @@
 package com.cs1530.coursereview.model;
 
-import jakarta.presistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -46,7 +46,7 @@ public class Course {
     public void setTeacher(Teacher teacher) { this.teacher = teacher; }
 
     public List<Review> getReviews() { return reviews; }
-    public void setReviews(List<Review> courseNumber) { this.reviews = reviews; }
+    public void setReviews(List<Review> reviews) { this.reviews = reviews; }
 
     public String getSchedule() { return schedule; }
     public void setSchedule(String schedule) { this.schedule = schedule; }

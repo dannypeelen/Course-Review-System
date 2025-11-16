@@ -1,7 +1,7 @@
-package com.yourorg.coursereview.service;
+package com.cs1530.coursereview.service;
 
-import com.yourorg.coursereview.model.Course;
-import com.yourorg.coursereview.repository.CourseRepository;
+import com.cs1530.coursereview.model.Course;
+import com.cs1530.coursereview.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.yourorg.coursereview.repository;
+package com.cs1530.coursereview.repository;
 
-import com.yourorg.coursereview.model.Course;
+import com.cs1530.coursereview.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
