@@ -5,6 +5,7 @@ import com.cs1530.coursereview.model.Review;
 import com.cs1530.coursereview.repository.StudentRepository;
 import com.cs1530.coursereview.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -13,17 +14,19 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final ReviewRepository reviewRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, ReviewRepository reviewRepository) {
+    public StudentService(StudentRepository studentRepository, ReviewRepository reviewRepository, PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.reviewRepository = reviewRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Student registerStudent(String name, String password) {
         Student student = new Student();
         student.setName(name);
-        student.setPassword(password);
+        student.setPassword(passwordEncoder.encode(password));
         return studentRepository.save(student);
     }
 
@@ -43,7 +46,7 @@ public class StudentService {
 
     public boolean authenticateStudent(String name, String password) {
         return studentRepository.findByName(name)
-                .map(student -> student.login(password))
+                .map(student -> student.login(password, passwordEncoder))
                 .orElse(false);
     }
 }

@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: coursereview-db
+    environment:
+      POSTGRES_DB: coursereview
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - coursereview-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: coursereview-backend
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: coursereview
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: yourSecretKeyMustBeAtLeast256BitsLongForHS256AlgorithmToWorkProperly
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - coursereview-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: coursereview-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - coursereview-network
+    restart: unless-stopped
+
+networks:
+  coursereview-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,6 +1,7 @@
 package com.cs1530.coursereview.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @MappedSuperclass
 public abstract class User {
@@ -34,6 +35,10 @@ public abstract class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean login(String rawPassword, PasswordEncoder passwordEncoder) {
+        return this.password != null && passwordEncoder.matches(rawPassword, this.password);
     }
 
     public boolean login(String password) {
