@@ -6,10 +6,10 @@
   </div>
   
   <div class="courses-section">
-    <a class="course-container" *ngFor="let course of courses" [routerLink]="['/courses', course.id]">
+    <div class="course-container" *ngFor="let course of courses" [routerLink]="['/courses', course.id]">
       <h2>{{ course.name }}</h2>
       <p><strong>Professor:</strong> {{ course.professor }}</p>
       <p><strong>Credits:</strong> {{ course.credits }}</p>
-    </a>
+    </div>
   </div>
   
