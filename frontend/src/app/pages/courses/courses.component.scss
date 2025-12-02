@@ -1,0 +1,43 @@
+// Temporary css
+
+.courses-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  
+  .course-container {
+    display: block;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .course-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  
+  
+  .course-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  
+  .course-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+  }
+  
+  .course-container p {
+    margin-bottom: 0.5rem;
+    color: #475569;
+  }
+  
