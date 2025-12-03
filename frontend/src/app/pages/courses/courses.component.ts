@@ -11,8 +11,8 @@ import { RouterLink } from '@angular/router'
 export class CoursesComponent {
 // Hard-coded courses for now
   courses = [
-    {id: 1, name: 'CS1520 - Web Development', professor : 'Paulo Brasko', credits: 3},
-    {id: 2, name: 'CS1530 - Software Engineering', professor : 'Nadine von Frankenberg', credits: 3},
-    {id: 3, name: 'CS1501 - Data Structures & Algorithms 2', professor : 'Nicholas Farnan', credits: 3},
+    {id: 1, name: 'Web Development', code: 'CS1520', professor : 'Paulo Brasko', credits: 3, description: 'This course teaches you about...'},
+    {id: 2, name: 'Software Engineering', code: 'CS1530', professor : 'Nadine von Frankenberg', credits: 3, description: 'This course teaches you about...'},
+    {id: 3, name: 'Data Structures & Algorithms 2', code: 'CS1501', professor : 'Nicholas Farnan', credits: 3, description: 'This course teaches you about...'},
   ];
 }
