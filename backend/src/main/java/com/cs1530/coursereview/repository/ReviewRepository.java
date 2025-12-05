@@ -1,14 +1,16 @@
 package com.cs1530.coursereview.repository;
 
-import com.cs1530.coursereview.model.Review;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
+
+import com.cs1530.coursereview.model.Review;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findByCourseId(Long courseId);
 
-    List<Review> findByWriterId(Long writerId);
+    List<Review> findByWriterUserID(Long userID);
 }

@@ -1,13 +1,15 @@
 package com.cs1530.coursereview.service;
 
-import com.cs1530.coursereview.model.Student;
-import com.cs1530.coursereview.model.Review;
-import com.cs1530.coursereview.repository.StudentRepository;
-import com.cs1530.coursereview.repository.ReviewRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import com.cs1530.coursereview.model.Review;
+import com.cs1530.coursereview.model.Student;
+import com.cs1530.coursereview.repository.ReviewRepository;
+import com.cs1530.coursereview.repository.StudentRepository;
 
 @Service
 public class StudentService {
@@ -40,8 +42,8 @@ public class StudentService {
                 .orElseThrow(() -> new RuntimeException("Student not found"));
     }
 
-    public List<Review> getStudentReviewHistory(Long studentId) {
-        return reviewRepository.findByWriterId(studentId);
+    public List<Review> getStudentReviewHistory(Long userID) {
+        return reviewRepository.findByWriterUserID(userID);
     }
 
     public boolean authenticateStudent(String name, String password) {
