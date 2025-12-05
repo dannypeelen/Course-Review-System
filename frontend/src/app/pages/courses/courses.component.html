@@ -6,10 +6,9 @@
   </div>
   
   <div class="courses-section">
-    <div class="course-container" *ngFor="let course of courses" [routerLink]="['/courses', course.id]">
-      <h2>{{ course.name }}</h2>
-      <p><strong>Professor:</strong> {{ course.professor }}</p>
-      <p><strong>Credits:</strong> {{ course.credits }}</p>
+    <div class="course-container" *ngFor="let course of realCourses" [routerLink]="['/courses', course.id]">
+      <h2>{{ course.title }}</h2>
+      <p><strong>Professor:</strong> {{ course.teacher.name }}</p>
     </div>
   </div>
   

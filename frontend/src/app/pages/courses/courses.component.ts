@@ -21,11 +21,15 @@ export class CoursesComponent {
 
   realCourses: Course[] = [];
 
+  ngOnInit(): void {
+    this.loadCourses();
+  }
+
   loadCourses(): void {
     this.courseService.getCourses().subscribe(courses => {
       this.realCourses = courses;
+      console.log(this.realCourses);
     });
-    console.log(this.realCourses);
   }
 
 
