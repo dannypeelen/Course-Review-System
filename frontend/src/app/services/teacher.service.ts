@@ -11,7 +11,7 @@ export interface Teacher {
 @Injectable({
   providedIn: 'root'
 })
-export class TeacherService {
+export class Teacher {
   private apiUrl = 'http://localhost:8080/api/teachers';
   
   constructor(private http: HttpClient) { }

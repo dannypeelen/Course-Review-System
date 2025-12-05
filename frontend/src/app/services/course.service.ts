@@ -18,7 +18,7 @@ export interface Course {
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService {
+export class Course {
   private apiUrl = 'http://localhost:8080/api/courses';
   
   constructor(private http: HttpClient) { }
@@ -27,7 +27,7 @@ export class CourseService {
     return this.http.get<Course[]>(this.apiUrl);
   }
 
-  addClient(course: Course): Observable<Course> {
+  addCourse(course: Course): Observable<Course> {
     return this.http.post<Course>(this.apiUrl, course);
   }
 

@@ -13,7 +13,7 @@ export interface Student {
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
+export class Student {
   private apiUrl = 'http://localhost:8080/api/students';
   
   constructor(private http: HttpClient) { }
