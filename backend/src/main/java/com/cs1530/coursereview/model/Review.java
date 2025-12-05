@@ -1,6 +1,15 @@
 package com.cs1530.coursereview.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "reviews")
@@ -12,6 +21,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "writer_id")
+    @JsonBackReference
     private Student writer;
 
     @Column(name = "review_content", length = 2000)
@@ -22,6 +32,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonBackReference
     private Course course;
 
     public Long getId() {

@@ -3,6 +3,8 @@ package com.cs1530.coursereview.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ public class Course {
     private Teacher teacher;
 
     @OneToMany(mappedBy = "course")
+    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
     private int rating;
