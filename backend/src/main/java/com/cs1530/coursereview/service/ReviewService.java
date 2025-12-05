@@ -1,14 +1,16 @@
 package com.cs1530.coursereview.service;
 
-import com.cs1530.coursereview.model.Review;
-import com.cs1530.coursereview.model.Course;
-import com.cs1530.coursereview.model.Student;
-import com.cs1530.coursereview.repository.ReviewRepository;
-import com.cs1530.coursereview.repository.CourseRepository;
-import com.cs1530.coursereview.repository.StudentRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import com.cs1530.coursereview.model.Course;
+import com.cs1530.coursereview.model.Review;
+import com.cs1530.coursereview.model.Student;
+import com.cs1530.coursereview.repository.CourseRepository;
+import com.cs1530.coursereview.repository.ReviewRepository;
+import com.cs1530.coursereview.repository.StudentRepository;
 
 @Service
 public class ReviewService {
@@ -65,5 +67,10 @@ public class ReviewService {
 
     public void deleteReview(Long reviewId) {
         reviewRepository.deleteById(reviewId);
+    }
+
+    public List<Review> getAllReviews() {
+        List<Review> allReviews = reviewRepository.findAll();
+        return allReviews;
     }
 }

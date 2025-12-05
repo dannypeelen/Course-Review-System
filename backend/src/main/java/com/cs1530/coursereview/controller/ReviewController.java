@@ -1,6 +1,7 @@
 package com.cs1530.coursereview.controller;
 
 import com.cs1530.coursereview.model.Review;
+import com.cs1530.coursereview.model.Student;
 import com.cs1530.coursereview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,12 @@ public class ReviewController {
     @Autowired
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getStudents() {
+        List<Review> response = reviewService.getAllReviews();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
