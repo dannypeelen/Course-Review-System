@@ -70,18 +70,39 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  font-size: 34px;
+  font-weight: bold;
 }
 
-.rating-stars {
-  font-size: 1.2rem;
-  color: #fbbf24;
-  margin-bottom: 0.5rem;
+.rating-max {
+  font-size: 14px;
+  font-weight: normal;
+  vertical-align: super;
+  margin-left: 2px;
 }
 
 .rating-count {
   font-size: 0.9rem;
   opacity: 0.9;
 }
+
+.numeric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.numeric-value {
+  background: #667eea;
+  color: white;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  min-width: 24px;
+  text-align: center;
+}
+
 
 /* Course Content Layout */
 .course-content {
@@ -373,3 +394,4 @@
     }
   }
 }
+

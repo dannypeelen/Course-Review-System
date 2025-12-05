@@ -12,8 +12,9 @@
       </div>
     </div>
     <div class="course-rating">
-      <div class="rating-score">4.5</div>
-      <div class="rating-stars">★★★★★</div>
+      <div class="rating-score">
+        4.5<span class="rating-max">/5</span>
+      </div>      
       <div class="rating-count">124 reviews</div>
     </div>
   </div>
@@ -33,10 +34,8 @@
           <div class="review-item">
             <div class="review-header">
               <div class="reviewer-info">
-                <strong>Student A</strong>
                 <span class="review-date">2 weeks ago</span>
               </div>
-              <div class="review-rating">★★★★★</div>
             </div>
             <p class="review-text">
               Excellent course! The professor explains concepts clearly and the projects are challenging but rewarding.
@@ -46,10 +45,8 @@
           <div class="review-item">
             <div class="review-header">
               <div class="reviewer-info">
-                <strong>Student B</strong>
                 <span class="review-date">1 month ago</span>
               </div>
-              <div class="review-rating">★★★★☆</div>
             </div>
             <p class="review-text">
               Great introduction to CS. The workload is manageable and the TAs are very helpful.
@@ -59,10 +56,8 @@
           <div class="review-item">
             <div class="review-header">
               <div class="reviewer-info">
-                <strong>Student C</strong>
                 <span class="review-date">2 months ago</span>
               </div>
-              <div class="review-rating">★★★★★</div>
             </div>
             <p class="review-text">
               Highly recommend! Perfect for beginners with clear explanations and practical assignments.
@@ -76,6 +71,18 @@
       <div class="info-card">
         <h3>Course Details</h3>
         <div class="detail-item">
+          <span class="detail-label">Course Name:</span>
+          <span class="detail-value">{{course.name}}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Course Code:</span>
+          <span class="detail-value">{{course.code}}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Credits:</span>
+          <span class="detail-value">{{course.credits}}</span>
+        </div>
+        <div class="detail-item">
           <span class="detail-label">Instructor:</span>
           <span class="detail-value">{{course.professor}}</span>
         </div>
@@ -83,35 +90,30 @@
           <span class="detail-label">Department:</span>
           <span class="detail-value">Computer Science</span>
         </div>
-        <div class="detail-item">
-          <span class="detail-label">Prerequisites:</span>
-          <span class="detail-value">None</span>
-        </div>
-        <div class="detail-item">
-          <span class="detail-label">Format:</span>
-          <span class="detail-value">In-Person</span>
-        </div>
       </div>
 
       <div class="info-card">
         <h3>Workload</h3>
-        <div class="workload-item">
-          <span>Difficulty</span>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 60%"></div>
-          </div>
+        <div class="detail-item">
+          <span class="detail-label">Difficulty (1-5)</span>
+          <span class="detail-value">4.6</span>
         </div>
-        <div class="workload-item">
-          <span>Time Commitment</span>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 70%"></div>
-          </div>
+        <div class="detail-item">
+          <span class="detail-label">Time Commitment (hours/week)</span>
+          <span class="detail-value">7.2</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label"># Exams</span>
+          <span class="detail-value">1.9</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label"># Projects</span>
+          <span class="detail-value">3.3</span>
         </div>
       </div>
 
       <div class="action-card">
         <button class="btn btn-primary btn-full">Write a Review</button>
-        <button class="btn btn-secondary btn-full">Add to Wishlist</button>
       </div>
     </div>
   </div>
