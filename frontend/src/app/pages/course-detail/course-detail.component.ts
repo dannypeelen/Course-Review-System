@@ -19,11 +19,16 @@ export class CourseDetailComponent {
     {id: 3, name: 'Data Structures & Algorithms 2', code: 'CS1501', professor : 'Nicholas Farnan', credits: 3, description: 'This course teaches you about...'},
   ];
   course: any;
+  showAllReviews = false;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.course = this.courses.find(c => c.id === id);
+  }
+
+  toggleReviews() {
+    this.showAllReviews = !this.showAllReviews;
   }
 }

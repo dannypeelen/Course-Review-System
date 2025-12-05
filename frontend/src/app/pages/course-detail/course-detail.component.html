@@ -63,7 +63,55 @@
               Highly recommend! Perfect for beginners with clear explanations and practical assignments.
             </p>
           </div>
+
+          <div class="review-item" *ngIf="showAllReviews">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <span class="review-date">2 months ago</span>
+              </div>
+            </div>
+            <p class="review-text">
+              The course material is well-organized and the professor is engaging. Assignments help reinforce the concepts taught in class.
+            </p>
+          </div>
+
+          <div class="review-item" *ngIf="showAllReviews">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <span class="review-date">3 months ago</span>
+              </div>
+            </div>
+            <p class="review-text">
+              Good balance between theory and practice. The coding assignments are relevant and prepare you well for real-world scenarios.
+            </p>
+          </div>
+
+          <div class="review-item" *ngIf="showAllReviews">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <span class="review-date">3 months ago</span>
+              </div>
+            </div>
+            <p class="review-text">
+              Very informative course with a supportive learning environment. Office hours are helpful for getting extra assistance.
+            </p>
+          </div>
+
+          <div class="review-item" *ngIf="showAllReviews">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <span class="review-date">4 months ago</span>
+              </div>
+            </div>
+            <p class="review-text">
+              Solid course overall. The lectures are comprehensive and the labs give you hands-on experience with the concepts.
+            </p>
+          </div>
         </div>
+        
+        <button class="btn btn-secondary view-more-btn" (click)="toggleReviews()">
+          {{ showAllReviews ? 'Show Less' : 'View More' }}
+        </button>
       </div>
     </div>
 
