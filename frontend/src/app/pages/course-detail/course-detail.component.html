@@ -30,86 +30,46 @@
 
       <div class="info-card">
         <h2>Recent Reviews</h2>
+        
+        <div class="review-form" *ngIf="showReviewForm">
+          <textarea 
+            [(ngModel)]="reviewText" 
+            [maxlength]="maxCharacters"
+            placeholder="Share your experience with this course..."
+            class="review-textarea"
+            rows="6"
+          ></textarea>
+          <div class="review-form-footer">
+            <span class="character-count" [class.text-danger]="remainingCharacters < 50">
+              {{ remainingCharacters }} / {{ maxCharacters }} characters remaining
+            </span>
+            <div class="form-actions">
+              <button class="btn btn-secondary" (click)="toggleReviewForm()">Cancel</button>
+              <button 
+                class="btn btn-primary" 
+                (click)="submitReview()"
+                [disabled]="reviewText.trim().length === 0"
+              >
+                Submit Review
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="reviews-list">
-          <div class="review-item">
+          <div class="review-item" *ngFor="let review of reviews; let i = index" [hidden]="!showAllReviews && i >= 3">
             <div class="review-header">
               <div class="reviewer-info">
-                <span class="review-date">2 weeks ago</span>
+                <span class="review-date">{{ review.date }}</span>
               </div>
             </div>
             <p class="review-text">
-              Excellent course! The professor explains concepts clearly and the projects are challenging but rewarding.
-            </p>
-          </div>
-
-          <div class="review-item">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <span class="review-date">1 month ago</span>
-              </div>
-            </div>
-            <p class="review-text">
-              Great introduction to CS. The workload is manageable and the TAs are very helpful.
-            </p>
-          </div>
-
-          <div class="review-item">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <span class="review-date">2 months ago</span>
-              </div>
-            </div>
-            <p class="review-text">
-              Highly recommend! Perfect for beginners with clear explanations and practical assignments.
-            </p>
-          </div>
-
-          <div class="review-item" *ngIf="showAllReviews">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <span class="review-date">2 months ago</span>
-              </div>
-            </div>
-            <p class="review-text">
-              The course material is well-organized and the professor is engaging. Assignments help reinforce the concepts taught in class.
-            </p>
-          </div>
-
-          <div class="review-item" *ngIf="showAllReviews">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <span class="review-date">3 months ago</span>
-              </div>
-            </div>
-            <p class="review-text">
-              Good balance between theory and practice. The coding assignments are relevant and prepare you well for real-world scenarios.
-            </p>
-          </div>
-
-          <div class="review-item" *ngIf="showAllReviews">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <span class="review-date">3 months ago</span>
-              </div>
-            </div>
-            <p class="review-text">
-              Very informative course with a supportive learning environment. Office hours are helpful for getting extra assistance.
-            </p>
-          </div>
-
-          <div class="review-item" *ngIf="showAllReviews">
-            <div class="review-header">
-              <div class="reviewer-info">
-                <span class="review-date">4 months ago</span>
-              </div>
-            </div>
-            <p class="review-text">
-              Solid course overall. The lectures are comprehensive and the labs give you hands-on experience with the concepts.
+              {{ review.text }}
             </p>
           </div>
         </div>
         
-        <button class="btn btn-secondary view-more-btn" (click)="toggleReviews()">
+        <button class="btn btn-secondary view-more-btn" (click)="toggleReviews()" *ngIf="reviews.length > 3">
           {{ showAllReviews ? 'Show Less' : 'View More' }}
         </button>
       </div>
@@ -161,7 +121,7 @@
       </div>
 
       <div class="action-card">
-        <button class="btn btn-primary btn-full">Write a Review</button>
+        <button class="btn btn-primary btn-full" (click)="toggleReviewForm()">Write a Review</button>
       </div>
     </div>
   </div>
