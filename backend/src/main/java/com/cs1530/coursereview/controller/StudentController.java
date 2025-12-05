@@ -1,15 +1,23 @@
 package com.cs1530.coursereview.controller;
 
-import com.cs1530.coursereview.model.Student;
-import com.cs1530.coursereview.model.Review;
-import com.cs1530.coursereview.service.StudentService;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import com.cs1530.coursereview.model.Review;
+import com.cs1530.coursereview.model.Student;
+import com.cs1530.coursereview.service.StudentService;
+
 
 @RestController
 @RequestMapping("/api/students")
@@ -23,6 +31,12 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getStudents() {
+        List<Student> response = studentService.getAllStudents();
+        return ResponseEntity.ok(response);
+    }
+    
     @PostMapping("/register")
     public ResponseEntity<Student> registerStudent(@RequestBody Map<String, String> payload) {
         try {

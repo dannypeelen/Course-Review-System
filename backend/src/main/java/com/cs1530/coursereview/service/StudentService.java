@@ -51,4 +51,9 @@ public class StudentService {
                 .map(student -> student.login(password, passwordEncoder))
                 .orElse(false);
     }
+
+    public List<Student> getAllStudents() {
+        List<Student> allStudents = studentRepository.findAll();
+        return allStudents;
+    }
 }
