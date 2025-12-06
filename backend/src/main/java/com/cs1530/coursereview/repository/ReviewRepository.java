@@ -8,9 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.cs1530.coursereview.model.Review;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
-    List<Review> findByCourseId(Long courseId);
-
-    List<Review> findByWriterUserID(Long userID);
+    List<Review> findByCourseId(Integer courseId);
 }

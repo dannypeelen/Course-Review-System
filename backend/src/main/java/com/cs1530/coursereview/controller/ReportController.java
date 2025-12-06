@@ -25,7 +25,7 @@ public class ReportController {
     @PostMapping
     public ResponseEntity<Report> submitReport(@RequestBody Map<String, Object> payload) {
         try {
-            Long reviewId = Long.valueOf(payload.get("reviewId").toString());
+            Integer reviewId = Integer.valueOf(payload.get("reviewId").toString());
             String content = payload.get("content").toString();
 
             Report report = reportService.createReport(reviewId, content);

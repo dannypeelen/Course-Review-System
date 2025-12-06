@@ -32,11 +32,16 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<Review> createReview(@RequestBody Map<String, Object> payload) {
         try {
-            Long courseId = Long.valueOf(payload.get("courseId").toString());
+            Integer courseId = Integer.valueOf(payload.get("courseId").toString());
             Long studentId = Long.valueOf(payload.get("studentId").toString());
             String content = payload.get("content").toString();
+            Integer rating = Integer.valueOf(payload.get("rating").toString());
+            Integer difficulty = Integer.valueOf(payload.get("difficulty").toString());
+            Integer timeCommitment = Integer.valueOf(payload.get("timeCommitment").toString());
+            Integer numberOfExams = Integer.valueOf(payload.get("numberOfExams").toString());
+            Integer numberOfProjects = Integer.valueOf(payload.get("numberOfProjects").toString());
 
-            Review review = reviewService.createReview(courseId, studentId, content);
+            Review review = reviewService.createReview(courseId, studentId, content, rating, difficulty, timeCommitment, numberOfExams, numberOfProjects);
             return ResponseEntity.status(HttpStatus.CREATED).body(review);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
@@ -44,13 +49,13 @@ public class ReviewController {
     }
 
     @GetMapping("/course/{courseId}")
-    public ResponseEntity<List<Review>> getReviewsByCourse(@PathVariable Long courseId) {
+    public ResponseEntity<List<Review>> getReviewsByCourse(@PathVariable Integer courseId) {
         List<Review> reviews = reviewService.getReviewsByCourse(courseId);
         return ResponseEntity.ok(reviews);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
+    public ResponseEntity<Review> getReviewById(@PathVariable Integer id) {
         try {
             Review review = reviewService.getReviewById(id);
             return ResponseEntity.ok(review);
@@ -59,20 +64,17 @@ public class ReviewController {
         }
     }
 
-    @PostMapping("/{id}/like")
-    public ResponseEntity<Review> likeReview(@PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Review> updateReview(@PathVariable Integer id, @RequestBody Map<String, Object> payload) {
         try {
-            Review review = reviewService.likeReview(id);
-            return ResponseEntity.ok(review);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+            String content = payload.containsKey("content") ? payload.get("content").toString() : null;
+            Integer rating = payload.containsKey("rating") ? Integer.valueOf(payload.get("rating").toString()) : null;
+            Integer difficulty = payload.containsKey("difficulty") ? Integer.valueOf(payload.get("difficulty").toString()) : null;
+            Integer timeCommitment = payload.containsKey("timeCommitment") ? Integer.valueOf(payload.get("timeCommitment").toString()) : null;
+            Integer numberOfExams = payload.containsKey("numberOfExams") ? Integer.valueOf(payload.get("numberOfExams").toString()) : null;
+            Integer numberOfProjects = payload.containsKey("numberOfProjects") ? Integer.valueOf(payload.get("numberOfProjects").toString()) : null;
 
-    @PostMapping("/{id}/dislike")
-    public ResponseEntity<Review> dislikeReview(@PathVariable Long id) {
-        try {
-            Review review = reviewService.dislikeReview(id);
+            Review review = reviewService.updateReview(id, content, rating, difficulty, timeCommitment, numberOfExams, numberOfProjects);
             return ResponseEntity.ok(review);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -80,7 +82,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteReview(@PathVariable Integer id) {
         try {
             reviewService.deleteReview(id);
             return ResponseEntity.noContent().build();

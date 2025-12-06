@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Review } from '../services/review.service';
-import { Teacher } from '../services/teacher.service';
 
 export interface Course {
-  id: number;
-  courseNumber: string;
-  title: string;
+  courseId: number;
+  courseName: string;
+  courseCode: string;
+  numberOfCredits: number;
   description: string;
-  teacher: Teacher;
-  reviews: Review[];
-  rating: number;
-  schedule: string;
+  professor: string;
+  createdAt: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class Course {
+export class CourseService {
   private apiUrl = 'http://localhost:8080/api/courses';
   
   constructor(private http: HttpClient) { }
 
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.apiUrl);
+  }
+
+  getCourseById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${this.apiUrl}/${id}`);
   }
 
   addCourse(course: Course): Observable<Course> {

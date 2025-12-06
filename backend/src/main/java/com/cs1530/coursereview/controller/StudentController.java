@@ -58,14 +58,4 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @GetMapping("/{id}/history")
-    public ResponseEntity<List<Review>> getAccountHistory(@PathVariable Long id) {
-        try {
-            List<Review> reviews = studentService.getStudentReviewHistory(id);
-            return ResponseEntity.ok(reviews);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
 }

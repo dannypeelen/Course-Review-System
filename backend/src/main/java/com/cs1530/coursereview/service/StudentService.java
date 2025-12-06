@@ -42,10 +42,6 @@ public class StudentService {
                 .orElseThrow(() -> new RuntimeException("Student not found"));
     }
 
-    public List<Review> getStudentReviewHistory(Long userID) {
-        return reviewRepository.findByWriterUserID(userID);
-    }
-
     public boolean authenticateStudent(String name, String password) {
         return studentRepository.findByName(name)
                 .map(student -> student.login(password, passwordEncoder))

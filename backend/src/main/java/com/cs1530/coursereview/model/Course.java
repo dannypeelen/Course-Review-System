@@ -21,97 +21,80 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "course_id")
+    private Integer courseId;
 
-    @Column(name = "course_number", nullable = false, unique = true)
-    private String courseNumber;
+    @Column(name = "course_name", nullable = false, length = 200)
+    private String courseName;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(name = "course_code", nullable = false, length = 50)
+    private String courseCode;
+
+    @Column(name = "number_of_credits", nullable = false)
+    private Integer numberOfCredits;
 
     @Column(length = 2000)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    @Column(length = 200)
+    private String professor;
 
-    @OneToMany(mappedBy = "course")
-    @JsonManagedReference
-    private List<Review> reviews = new ArrayList<>();
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private java.time.LocalDateTime createdAt;
 
-    private int rating;
-
-    private String schedule;
-
-    public Long getId() {
-        return id;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
-    public String getCourseNumber() {
-        return courseNumber;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourseNumber(String courseNumber) {
-        this.courseNumber = courseNumber;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Integer getNumberOfCredits() {
+        return numberOfCredits;
+    }
+
+    public void setNumberOfCredits(Integer numberOfCredits) {
+        this.numberOfCredits = numberOfCredits;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public String getProfessor() {
+        return professor;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public java.time.LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public int getRating() {
-        return rating;
+    public void setCreatedAt(java.time.LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public void addReview(Review review) {
-        if (this.reviews != null) {
-            this.reviews.add(review);
-        }
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
-    }
-
 }

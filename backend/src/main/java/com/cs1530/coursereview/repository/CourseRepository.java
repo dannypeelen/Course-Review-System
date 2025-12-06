@@ -7,12 +7,9 @@ import java.util.List;
 
 // DB access for course?
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     // Spring automatically implements these based on method names!
-    List<Course> findByTeacherId(Long teacherId);
-
-    Course findByCourseNumber(String courseNumber);
-
-    List<Course> findByTitleContainingIgnoreCase(String keyword);
+    List<Course> findByCourseNameContainingIgnoreCase(String keyword);
+    Course findByCourseCode(String courseCode);
 }
