@@ -5,17 +5,19 @@
 
   <div class="course-header">
     <div class="course-title-section">
-      <h1 class="course-title">{{course.name}}</h1>
+      <h1 class="course-title">{{course?.title}}</h1>
       <div class="course-meta">
-        <span class="course-code">{{course.code}}</span>
-        <span class="course-credits">{{course.credits}} Credits</span>
+        <span class="course-code">{{course?.courseNumber}}</span>
+        <!-- <span class="course-credits">{{course?.credits}} Credits</span> -->
       </div>
     </div>
     <div class="course-rating">
       <div class="rating-score">
-        4.5<span class="rating-max">/5</span>
+        {{course?.rating}}<span class="rating-max">/5</span>
       </div>      
-      <div class="rating-count">124 reviews</div>
+      <div *ngIf="reviews">
+        <div class="rating-count">{{ reviews.length }} reviews</div>
+      </div>
     </div>
   </div>
 
@@ -24,7 +26,7 @@
       <div class="info-card">
         <h2>Course Description</h2>
         <p>
-          {{course.description}}
+          {{course?.description}}
         </p>
       </div>
 
@@ -80,19 +82,19 @@
         <h3>Course Details</h3>
         <div class="detail-item">
           <span class="detail-label">Course Name:</span>
-          <span class="detail-value">{{course.name}}</span>
+          <span class="detail-value">{{course?.title}}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Course Code:</span>
-          <span class="detail-value">{{course.code}}</span>
+          <span class="detail-value">{{course?.courseNumber}}</span>
         </div>
-        <div class="detail-item">
+        <!-- <div class="detail-item">
           <span class="detail-label">Credits:</span>
-          <span class="detail-value">{{course.credits}}</span>
-        </div>
+          <span class="detail-value">{{course?.credits}}</span>
+        </div> -->
         <div class="detail-item">
           <span class="detail-label">Instructor:</span>
-          <span class="detail-value">{{course.professor}}</span>
+          <span class="detail-value">{{course?.teacher.name}}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Department:</span>

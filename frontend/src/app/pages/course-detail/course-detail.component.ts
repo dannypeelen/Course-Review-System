@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Course } from '../../services/course.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -11,13 +12,13 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent {
+
+  constructor(
+    private route: ActivatedRoute,
+    private courseService: Course) {}
   // Component logic goes here
   // Hard-coded for now
-  courses = [
-    {id: 1, name: 'Web Development', code: 'CS1520', professor : 'Paulo Brasko', credits: 3, description: 'This course teaches you about...'},
-    {id: 2, name: 'Software Engineering', code: 'CS1530', professor : 'Nadine von Frankenberg', credits: 3, description: 'This course teaches you about...'},
-    {id: 3, name: 'Data Structures & Algorithms 2', code: 'CS1501', professor : 'Nicholas Farnan', credits: 3, description: 'This course teaches you about...'},
-  ];
+  courses: Course[] = [];
   course: any;
   showAllReviews = false;
   showReviewForm = false;
@@ -55,12 +56,20 @@ export class CourseDetailComponent {
     }
   ];
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.course = this.courses.find(c => c.id === id);
+  ngOnInit(): void {
+    this.loadCourses();
   }
+
+  loadCourses(): void {
+    this.courseService.getCourses().subscribe(courses => {
+      this.courses = courses;
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      console.log(id);
+      this.course = this.courses.find(c => c.id === id);
+      console.log(this.course);
+    });
+  }
+
 
   toggleReviews() {
     this.showAllReviews = !this.showAllReviews;
