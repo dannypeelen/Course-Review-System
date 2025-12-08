@@ -3,6 +3,9 @@
 ## Introduction
 As college students, we understand the stress of course selection every semester. From navigating an overwhelming list of options to figuring out which professors and classes best fit your learning style, this process can be challenging for many reasons. Our Course Review System aims to simplify this experience by providing a platform where students can share honest reviews, ratings, and insights about their courses. With this system, you can make informed decisions, plan your schedule effectively, and ultimately have a more rewarding academic experience.
 
+## Creators
+Danny Cohen, Danny Peelen, David Altman, Griffin Holcombe, Nathan Barton
+
 ## Current Functionality
 - **University Scope:** Currently supports data for a single university (using a fake database).  
 - **Course Browsing:** Users can browse all Computer Science courses.  
@@ -21,9 +24,6 @@ As college students, we understand the stress of course selection every semester
 - **Search Functionality:** Allow users to quickly find courses by name, code, or professor.  
 - **Course Filtering:** Let users filter courses by difficulty, workload, or average rating.  
 - **User Profiles:** Users can view their profile to see previously viewed courses and their submitted reviews.
-
-## Creators
-Danny Cohen, Danny Peelen, David Altman, Griffin Holcombe, Nathan Barton
 
 ## Quick Start Guide
 
