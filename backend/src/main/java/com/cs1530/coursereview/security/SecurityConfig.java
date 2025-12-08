@@ -1,5 +1,7 @@
 package com.cs1530.coursereview.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -38,11 +38,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/students/register").permitAll()
                         .requestMatchers("/api/courses/**").permitAll()
-                        .requestMatchers("/api/reviews/**").authenticated()
-                        .requestMatchers("/api/reports/**").authenticated()
-                        .requestMatchers("/api/teachers/**").hasRole("ADMINISTRATOR")
-                        .requestMatchers("/api/students/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/reviews/**").permitAll()
+                        .requestMatchers("/api/reports/**").permitAll()
+                        .requestMatchers("/api/teachers/**").permitAll()
+                        .requestMatchers("/api/students/**").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

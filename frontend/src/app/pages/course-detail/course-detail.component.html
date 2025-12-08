@@ -5,17 +5,17 @@
 
   <div class="course-header">
     <div class="course-title-section">
-      <h1 class="course-title">{{course.name}}</h1>
+      <h1 class="course-title">{{course?.courseName}}</h1>
       <div class="course-meta">
-        <span class="course-code">{{course.code}}</span>
-        <span class="course-credits">{{course.credits}} Credits</span>
+        <span class="course-code">{{course?.courseCode}}</span>
+        <span class="course-credits">{{course?.numberOfCredits}} Credits</span>
       </div>
     </div>
     <div class="course-rating">
       <div class="rating-score">
-        4.5<span class="rating-max">/5</span>
+        {{averageRating}}<span class="rating-max">/5</span>
       </div>      
-      <div class="rating-count">124 reviews</div>
+      <div class="rating-count">{{reviews.length}} reviews</div>
     </div>
   </div>
 
@@ -24,7 +24,7 @@
       <div class="info-card">
         <h2>Course Description</h2>
         <p>
-          {{course.description}}
+          {{course?.description}}
         </p>
       </div>
 
@@ -39,6 +39,30 @@
             class="review-textarea"
             rows="6"
           ></textarea>
+          
+          <div class="review-form-inputs">
+            <div class="form-group">
+              <label>Rating (1-5): {{rating}}</label>
+              <input type="range" [(ngModel)]="rating" min="1" max="5" step="1" class="form-range">
+            </div>
+            <div class="form-group">
+              <label>Difficulty (1-5): {{difficulty}}</label>
+              <input type="range" [(ngModel)]="difficulty" min="1" max="5" step="1" class="form-range">
+            </div>
+            <div class="form-group">
+              <label>Time Commitment (hours/week):</label>
+              <input type="number" [(ngModel)]="timeCommitment" min="0" max="40" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Number of Exams:</label>
+              <input type="number" [(ngModel)]="numberOfExams" min="0" max="10" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Number of Projects:</label>
+              <input type="number" [(ngModel)]="numberOfProjects" min="0" max="20" class="form-control">
+            </div>
+          </div>
+          
           <div class="review-form-footer">
             <span class="character-count" [class.text-danger]="remainingCharacters < 50">
               {{ remainingCharacters }} / {{ maxCharacters }} characters remaining
@@ -60,12 +84,21 @@
           <div class="review-item" *ngFor="let review of reviews; let i = index" [hidden]="!showAllReviews && i >= 3">
             <div class="review-header">
               <div class="reviewer-info">
-                <span class="review-date">{{ review.date }}</span>
+                <span class="review-date">{{ review.createdAt | date:'short' }}</span>
+              </div>
+              <div class="review-ratings">
+                <span class="rating-badge">Rating: {{ review.rating }}/5</span>
+                <span class="difficulty-badge">Difficulty: {{ review.difficulty }}/5</span>
               </div>
             </div>
             <p class="review-text">
-              {{ review.text }}
+              {{ review.review }}
             </p>
+            <div class="review-stats">
+              <span>{{ review.timeCommitment }} hrs/week</span>
+              <span>{{ review.numberOfExams }} exams</span>
+              <span>{{ review.numberOfProjects }} projects</span>
+            </div>
           </div>
         </div>
         
@@ -80,23 +113,19 @@
         <h3>Course Details</h3>
         <div class="detail-item">
           <span class="detail-label">Course Name:</span>
-          <span class="detail-value">{{course.name}}</span>
+          <span class="detail-value">{{course?.courseName}}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Course Code:</span>
-          <span class="detail-value">{{course.code}}</span>
+          <span class="detail-value">{{course?.courseCode}}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Credits:</span>
-          <span class="detail-value">{{course.credits}}</span>
+          <span class="detail-value">{{course?.numberOfCredits}}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Instructor:</span>
-          <span class="detail-value">{{course.professor}}</span>
-        </div>
-        <div class="detail-item">
-          <span class="detail-label">Department:</span>
-          <span class="detail-value">Computer Science</span>
+          <span class="detail-value">{{course?.professor}}</span>
         </div>
       </div>
 
@@ -104,19 +133,19 @@
         <h3>Workload</h3>
         <div class="detail-item">
           <span class="detail-label">Difficulty (1-5)</span>
-          <span class="detail-value">4.6</span>
+          <span class="detail-value">{{ averageDifficulty || 'N/A' }}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Time Commitment (hours/week)</span>
-          <span class="detail-value">7.2</span>
+          <span class="detail-value">{{ averageTimeCommitment || 'N/A' }}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label"># Exams</span>
-          <span class="detail-value">1.9</span>
+          <span class="detail-value">{{ averageExams || 'N/A' }}</span>
         </div>
         <div class="detail-item">
           <span class="detail-label"># Projects</span>
-          <span class="detail-value">3.3</span>
+          <span class="detail-value">{{ averageProjects || 'N/A' }}</span>
         </div>
       </div>
 

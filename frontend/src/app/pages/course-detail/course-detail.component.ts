@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Course, CourseService } from '../../services/course.service';
+import { Review, ReviewService } from '../../services/review.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -11,55 +13,80 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent {
-  // Component logic goes here
-  // Hard-coded for now
-  courses = [
-    {id: 1, name: 'Web Development', code: 'CS1520', professor : 'Paulo Brasko', credits: 3, description: 'This course teaches you about...'},
-    {id: 2, name: 'Software Engineering', code: 'CS1530', professor : 'Nadine von Frankenberg', credits: 3, description: 'This course teaches you about...'},
-    {id: 3, name: 'Data Structures & Algorithms 2', code: 'CS1501', professor : 'Nicholas Farnan', credits: 3, description: 'This course teaches you about...'},
-  ];
-  course: any;
+  course?: Course;
+  reviews: Review[] = [];
   showAllReviews = false;
   showReviewForm = false;
   reviewText = '';
+  rating = 5;
+  difficulty = 3;
+  timeCommitment = 10;
+  numberOfExams = 2;
+  numberOfProjects = 3;
   maxCharacters = 1000;
   
-  reviews = [
-    {
-      date: '2 weeks ago',
-      text: 'Excellent course! The professor explains concepts clearly and the projects are challenging but rewarding.'
-    },
-    {
-      date: '1 month ago',
-      text: 'Great introduction to CS. The workload is manageable and the TAs are very helpful.'
-    },
-    {
-      date: '2 months ago',
-      text: 'Highly recommend! Perfect for beginners with clear explanations and practical assignments.'
-    },
-    {
-      date: '2 months ago',
-      text: 'The course material is well-organized and the professor is engaging. Assignments help reinforce the concepts taught in class.'
-    },
-    {
-      date: '3 months ago',
-      text: 'Good balance between theory and practice. The coding assignments are relevant and prepare you well for real-world scenarios.'
-    },
-    {
-      date: '3 months ago',
-      text: 'Very informative course with a supportive learning environment. Office hours are helpful for getting extra assistance.'
-    },
-    {
-      date: '4 months ago',
-      text: 'Solid course overall. The lectures are comprehensive and the labs give you hands-on experience with the concepts.'
-    }
-  ];
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private courseService: CourseService,
+    private reviewService: ReviewService
+  ) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.course = this.courses.find(c => c.id === id);
+    this.loadCourse(id);
+    this.loadReviews(id);
+  }
+
+  loadCourse(id: number) {
+    this.courseService.getCourseById(id).subscribe({
+      next: (course) => {
+        this.course = course;
+      },
+      error: (error) => {
+        console.error('Error loading course:', error);
+      }
+    });
+  }
+
+  loadReviews(courseId: number) {
+    this.reviewService.getReviewsByCourse(courseId).subscribe({
+      next: (reviews) => {
+        this.reviews = reviews;
+      },
+      error: (error) => {
+        console.error('Error loading reviews:', error);
+      }
+    });
+  }
+
+  get averageRating(): number {
+    if (this.reviews.length === 0) return 0;
+    const sum = this.reviews.reduce((acc, r) => acc + (r.rating || 0), 0);
+    return Number((sum / this.reviews.length).toFixed(1));
+  }
+
+  get averageDifficulty(): number {
+    if (this.reviews.length === 0) return 0;
+    const sum = this.reviews.reduce((acc, r) => acc + (r.difficulty || 0), 0);
+    return Number((sum / this.reviews.length).toFixed(1));
+  }
+
+  get averageTimeCommitment(): number {
+    if (this.reviews.length === 0) return 0;
+    const sum = this.reviews.reduce((acc, r) => acc + (r.timeCommitment || 0), 0);
+    return Number((sum / this.reviews.length).toFixed(1));
+  }
+
+  get averageExams(): number {
+    if (this.reviews.length === 0) return 0;
+    const sum = this.reviews.reduce((acc, r) => acc + (r.numberOfExams || 0), 0);
+    return Number((sum / this.reviews.length).toFixed(1));
+  }
+
+  get averageProjects(): number {
+    if (this.reviews.length === 0) return 0;
+    const sum = this.reviews.reduce((acc, r) => acc + (r.numberOfProjects || 0), 0);
+    return Number((sum / this.reviews.length).toFixed(1));
   }
 
   toggleReviews() {
@@ -70,6 +97,11 @@ export class CourseDetailComponent {
     this.showReviewForm = !this.showReviewForm;
     if (!this.showReviewForm) {
       this.reviewText = '';
+      this.rating = 5;
+      this.difficulty = 3;
+      this.timeCommitment = 10;
+      this.numberOfExams = 2;
+      this.numberOfProjects = 3;
     }
   }
 
@@ -78,14 +110,29 @@ export class CourseDetailComponent {
   }
 
   submitReview() {
-    if (this.reviewText.trim().length > 0 && this.reviewText.length <= this.maxCharacters) {
+    if (this.reviewText.trim().length > 0 && this.reviewText.length <= this.maxCharacters && this.course) {
       const newReview = {
-        date: 'Just now',
-        text: this.reviewText.trim()
+        courseId: this.course.courseId,
+        studentId: 1, // TODO: Get from logged-in user
+        content: this.reviewText.trim(),
+        rating: this.rating,
+        difficulty: this.difficulty,
+        timeCommitment: this.timeCommitment,
+        numberOfExams: this.numberOfExams,
+        numberOfProjects: this.numberOfProjects
       };
-      this.reviews.unshift(newReview);
-      this.reviewText = '';
-      this.showReviewForm = false;
+      
+      this.reviewService.addReview(newReview).subscribe({
+        next: (review) => {
+          this.reviews.unshift(review);
+          this.reviewText = '';
+          this.showReviewForm = false;
+        },
+        error: (error) => {
+          console.error('Error submitting review:', error);
+          alert('Failed to submit review. Please try again.');
+        }
+      });
     }
   }
 }

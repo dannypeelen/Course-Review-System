@@ -8,12 +8,10 @@ import java.util.List;
 @Table(name = "students")
 public class Student extends User {
 
-    @OneToMany(mappedBy = "writer")
-    private List<Review> reviews = new ArrayList<>();
+    // Reviews are now linked via courseId in the reviews table, not via a bidirectional relationship
 
     public void submitReview(Review review) {
-        review.setWriter(this);
-        this.reviews.add(review);
+        // Reviews are now linked via courseId field, not writer object
     }
 
     public Course viewCourseDetails() {
@@ -25,7 +23,7 @@ public class Student extends User {
     }
 
     public List<Review> accountHistory() {
-        return reviews;
+        return new ArrayList<>();
     }
 
     public Report issueReport(Review review, String content) {

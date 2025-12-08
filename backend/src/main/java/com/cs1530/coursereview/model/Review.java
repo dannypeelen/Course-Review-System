@@ -1,6 +1,15 @@
 package com.cs1530.coursereview.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "reviews")
@@ -8,74 +17,103 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "review_id")
+    private Integer reviewId;
 
-    @ManyToOne
-    @JoinColumn(name = "writer_id")
-    private Student writer;
+    @Column(name = "course_id", nullable = false)
+    private Integer courseId;
 
-    @Column(name = "review_content", length = 2000)
-    private String reviewContent;
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private java.time.LocalDateTime createdAt;
 
-    private int likes;
-    private int dislikes;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String review;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @Column
+    private Integer rating;
 
-    public Long getId() {
-        return id;
+    @Column
+    private Integer difficulty;
+
+    @Column(name = "time_commitment")
+    private Integer timeCommitment;
+
+    @Column(name = "number_of_exams")
+    private Integer numberOfExams;
+
+    @Column(name = "number_of_projects")
+    private Integer numberOfProjects;
+
+    // Getters and Setters
+    public Integer getReviewId() {
+        return reviewId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setReviewId(Integer reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public Student getWriter() {
-        return writer;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setWriter(Student writer) {
-        this.writer = writer;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
-    public String getReviewContent() {
-        return reviewContent;
+    public java.time.LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setReviewContent(String reviewContent) {
-        this.reviewContent = reviewContent;
+    public void setCreatedAt(java.time.LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public int getLikes() {
-        return likes;
+    public String getReview() {
+        return review;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setReview(String review) {
+        this.review = review;
     }
 
-    public int getDislikes() {
-        return dislikes;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
-    public Course getCourse() {
-        return course;
+    public Integer getDifficulty() {
+        return difficulty;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
     }
 
-    // this is just a stub for now
-    public Review comment() {
-        Review r = new Review();
-        r.setReviewContent("");
-        return r;
+    public Integer getTimeCommitment() {
+        return timeCommitment;
+    }
+
+    public void setTimeCommitment(Integer timeCommitment) {
+        this.timeCommitment = timeCommitment;
+    }
+
+    public Integer getNumberOfExams() {
+        return numberOfExams;
+    }
+
+    public void setNumberOfExams(Integer numberOfExams) {
+        this.numberOfExams = numberOfExams;
+    }
+
+    public Integer getNumberOfProjects() {
+        return numberOfProjects;
+    }
+
+    public void setNumberOfProjects(Integer numberOfProjects) {
+        this.numberOfProjects = numberOfProjects;
     }
 }

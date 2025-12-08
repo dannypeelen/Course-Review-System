@@ -1,14 +1,16 @@
 package com.cs1530.coursereview.service;
 
-import com.cs1530.coursereview.model.Review;
-import com.cs1530.coursereview.model.Course;
-import com.cs1530.coursereview.model.Student;
-import com.cs1530.coursereview.repository.ReviewRepository;
-import com.cs1530.coursereview.repository.CourseRepository;
-import com.cs1530.coursereview.repository.StudentRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import com.cs1530.coursereview.model.Course;
+import com.cs1530.coursereview.model.Review;
+import com.cs1530.coursereview.model.Student;
+import com.cs1530.coursereview.repository.CourseRepository;
+import com.cs1530.coursereview.repository.ReviewRepository;
+import com.cs1530.coursereview.repository.StudentRepository;
 
 @Service
 public class ReviewService {
@@ -26,44 +28,50 @@ public class ReviewService {
         this.studentRepository = studentRepository;
     }
 
-    public Review createReview(Long courseId, Long studentId, String content) {
+    public Review createReview(Integer courseId, Long studentId, String content, Integer rating, Integer difficulty, Integer timeCommitment, Integer numberOfExams, Integer numberOfProjects) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
         Review review = new Review();
-        review.setCourse(course);
-        review.setWriter(student);
-        review.setReviewContent(content);
-        review.setLikes(0);
-        review.setDislikes(0);
+        review.setCourseId(courseId);
+        review.setReview(content);
+        review.setRating(rating);
+        review.setDifficulty(difficulty);
+        review.setTimeCommitment(timeCommitment);
+        review.setNumberOfExams(numberOfExams);
+        review.setNumberOfProjects(numberOfProjects);
 
         return reviewRepository.save(review);
     }
 
-    public List<Review> getReviewsByCourse(Long courseId) {
+    public List<Review> getReviewsByCourse(Integer courseId) {
         return reviewRepository.findByCourseId(courseId);
     }
 
-    public Review getReviewById(Long id) {
+    public Review getReviewById(Integer id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
     }
 
-    public Review likeReview(Long reviewId) {
+    public Review updateReview(Integer reviewId, String content, Integer rating, Integer difficulty, Integer timeCommitment, Integer numberOfExams, Integer numberOfProjects) {
         Review review = getReviewById(reviewId);
-        review.setLikes(review.getLikes() + 1);
+        if (content != null) review.setReview(content);
+        if (rating != null) review.setRating(rating);
+        if (difficulty != null) review.setDifficulty(difficulty);
+        if (timeCommitment != null) review.setTimeCommitment(timeCommitment);
+        if (numberOfExams != null) review.setNumberOfExams(numberOfExams);
+        if (numberOfProjects != null) review.setNumberOfProjects(numberOfProjects);
         return reviewRepository.save(review);
     }
 
-    public Review dislikeReview(Long reviewId) {
-        Review review = getReviewById(reviewId);
-        review.setDislikes(review.getDislikes() + 1);
-        return reviewRepository.save(review);
-    }
-
-    public void deleteReview(Long reviewId) {
+    public void deleteReview(Integer reviewId) {
         reviewRepository.deleteById(reviewId);
+    }
+
+    public List<Review> getAllReviews() {
+        List<Review> allReviews = reviewRepository.findAll();
+        return allReviews;
     }
 }

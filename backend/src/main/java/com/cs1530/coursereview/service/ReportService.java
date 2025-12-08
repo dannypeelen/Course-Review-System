@@ -20,7 +20,7 @@ public class ReportService {
         this.reviewRepository = reviewRepository;
     }
 
-    public Report createReport(Long reviewId, String content) {
+    public Report createReport(Integer reviewId, String content) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 

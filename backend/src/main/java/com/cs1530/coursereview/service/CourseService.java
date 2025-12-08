@@ -21,7 +21,7 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Course getCourseById(Long id) {
+    public Course getCourseById(Integer id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
     }
@@ -31,6 +31,6 @@ public class CourseService {
     }
 
     public List<Course> searchCourses(String keyword) {
-        return courseRepository.findByTitleContainingIgnoreCase(keyword);
+        return courseRepository.findByCourseNameContainingIgnoreCase(keyword);
     }
 }
